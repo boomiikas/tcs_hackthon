@@ -63,7 +63,7 @@ API runs at `http://127.0.0.1:8000`. Interactive OpenAPI documentation is access
 
 #### 2. Frontend Application (React + Vite + TypeScript)
 ```bash
-cd frontend
+cd frontend01
 npm install
 npm run dev
 ```

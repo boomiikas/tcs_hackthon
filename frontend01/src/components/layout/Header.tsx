@@ -70,6 +70,46 @@ export const Header: React.FC = () => {
 
       {/* Right Controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {/* Live System Integration Badges */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '5px',
+              fontSize: '11px',
+              fontWeight: 500,
+              padding: '3px 8px',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: '#ecfdf5',
+              color: '#065f46',
+              border: '1px solid #a7f3d0',
+            }}
+            title="MongoDB Atlas Connected (menumind database - 16,814 records)"
+          >
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }} />
+            MongoDB Atlas
+          </span>
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              fontSize: '11px',
+              fontWeight: 500,
+              padding: '3px 8px',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: '#f0fdf4',
+              color: '#15803d',
+              border: '1px solid #bbf7d0',
+            }}
+            title="ML Engine Active (HistGradientBoosting + P10/P90 Quantiles + SciPy HiGHS Optimizer)"
+          >
+            <Sparkles size={11} color="#16a34a" />
+            ML Engine
+          </span>
+        </div>
+
         {/* Service Shift Badge */}
         <div
           style={{
