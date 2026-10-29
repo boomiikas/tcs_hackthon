@@ -25,6 +25,7 @@ import {
   Cell,
 } from 'recharts';
 import { useCanteen } from '../context/CanteenContext';
+import { InfoTooltip } from '../components/InfoTooltip';
 import { api } from '../services/api';
 
 export const DashboardPage: React.FC = () => {
@@ -63,8 +64,15 @@ export const DashboardPage: React.FC = () => {
       {/* Header Title */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
         <div>
-          <h1 className="page-title">Operational Overview</h1>
-          <p className="page-subtitle">Real-time daily preparation telemetry, demand fulfillment, and priority AI intervention flags</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <h1 className="page-title">Operational Overview</h1>
+            <span className="badge badge-neutral" style={{ fontSize: '11px', padding: '3px 8px' }}>
+              Scope: Today (Single Day: {currentDate})
+            </span>
+          </div>
+          <p className="page-subtitle">
+            Real-time daily preparation telemetry, demand fulfillment, and priority AI intervention flags • Single Day Horizon
+          </p>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button className="btn btn-secondary btn-sm" onClick={() => navigate('/analytics-calendar')}>
@@ -76,22 +84,37 @@ export const DashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Concise KPI Cards Row */}
+      {/* Concise KPI Cards Row with Explicit Scopes & Tooltips */}
       <div className="grid-5" style={{ marginBottom: '24px' }}>
         <div className="kpi-card">
           <div className="kpi-title">
-            <span>Portions Prepared</span>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              Portions Prepared
+              <InfoTooltip
+                title="Portions Prepared (Single Day)"
+                content="Sum of physical meal portions batch-cooked across Breakfast, Lunch, Snacks, and Dinner shifts today."
+                benchmark="Kitchen nominal capacity: 1,400 portions/day"
+              />
+            </span>
             <Utensils size={14} color="var(--primary-600)" />
           </div>
           <div className="kpi-value">{kpis.total_prepared.toLocaleString()}</div>
           <div className="kpi-context">
             <span className="badge badge-neutral">Capacity: 1,400</span>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Today</span>
           </div>
         </div>
 
         <div className="kpi-card">
           <div className="kpi-title">
-            <span>Portions Sold</span>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              Portions Sold
+              <InfoTooltip
+                title="Full-Price Clearance"
+                content="Meals sold at standard retail price before surplus recovery."
+                formula="Fulfillment = (Sold / Prepared) = 93.9%"
+              />
+            </span>
             <TrendingUp size={14} color="var(--positive-600)" />
           </div>
           <div className="kpi-value">{kpis.total_sold.toLocaleString()}</div>
@@ -105,18 +128,33 @@ export const DashboardPage: React.FC = () => {
 
         <div className="kpi-card">
           <div className="kpi-title">
-            <span>Today's Revenue</span>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              Today's Revenue
+              <InfoTooltip
+                title="Today's Logged Revenue"
+                content="Gross cash receipts logged for today's service shifts."
+                formula="Revenue = (Sold × Base Price) + (Surplus Recovered × Clearance Price)"
+              />
+            </span>
             <DollarSign size={14} color="var(--primary-600)" />
           </div>
           <div className="kpi-value">₹{kpis.today_revenue.toLocaleString()}</div>
           <div className="kpi-context">
-            <span style={{ color: 'var(--positive-700)', fontWeight: 500 }}>+₹{kpis.portions_recovered * 55}</span> via surplus
+            <span style={{ color: 'var(--positive-700)', fontWeight: 500 }}>+₹{(kpis.portions_recovered * 55).toLocaleString()}</span> via surplus rescue
           </div>
         </div>
 
         <div className="kpi-card">
           <div className="kpi-title">
-            <span>Food Waste</span>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              Food Waste %
+              <InfoTooltip
+                title="Daily Food Waste Rate"
+                content="Percentage of batch-cooked food discarded to composting or waste bins."
+                formula="Waste % = (Discarded Portions / Total Prepared) × 100"
+                benchmark="Today: 3.3% • Down from 16.8% legacy unoptimized baseline"
+              />
+            </span>
             <Percent size={14} color={kpis.waste_percentage > 5 ? 'var(--warning-600)' : 'var(--positive-600)'} />
           </div>
           <div className="kpi-value" style={{ color: kpis.waste_percentage > 5 ? 'var(--warning-700)' : 'var(--positive-700)' }}>
@@ -129,12 +167,19 @@ export const DashboardPage: React.FC = () => {
 
         <div className="kpi-card">
           <div className="kpi-title">
-            <span>Est. Operating Profit</span>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              Today's Net Profit
+              <InfoTooltip
+                title="Operating Profit (Single Day Scope)"
+                content="Net operating profit for today (Oct 29). For the 7-day optimized menu projection, see Weekly Optimizer (₹213,426 = ~₹30,489/day). For the 60-day historical trial aggregate, see Executive Reports (₹353,200)."
+                formula="Profit = Revenue (₹100,777) - Food Cost (₹41,374) = ₹59,403"
+              />
+            </span>
             <TrendingUp size={14} color="var(--primary-600)" />
           </div>
           <div className="kpi-value">₹{kpis.today_profit.toLocaleString()}</div>
           <div className="kpi-context">
-            <span>Cost: ₹{kpis.today_cost.toLocaleString()}</span>
+            <span>Cost: ₹{kpis.today_cost.toLocaleString()} • Single Day</span>
           </div>
         </div>
       </div>
@@ -329,9 +374,15 @@ export const DashboardPage: React.FC = () => {
           {/* E. Operational Decision Regret Meter */}
           <div className="card" style={{ borderLeft: '4px solid var(--primary-600)' }}>
             <div className="card-header" style={{ marginBottom: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <ShieldAlert size={16} color="var(--primary-600)" />
                 <h2 className="section-heading">Operational Decision Regret Meter</h2>
+                <InfoTooltip
+                  title="Decision Regret Score (0-100)"
+                  content="Quantifies avoidable friction losses from overproduction, missed demand stockouts, and surplus markdowns. Lower is better."
+                  formula="Regret Score = Min(100, [Avoidable Loss / (Revenue × 0.20)] × 100)"
+                  benchmark="Score < 20: Low Risk • Baseline was 46.5"
+                />
               </div>
               <span className={`badge ${regret_meter.score < 20 ? 'badge-positive' : 'badge-warning'}`}>
                 {regret_meter.severity}

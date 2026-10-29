@@ -12,6 +12,7 @@ import {
   ClipboardList,
 } from 'lucide-react';
 import { useCanteen } from '../context/CanteenContext';
+import { InfoTooltip } from '../components/InfoTooltip';
 import { api } from '../services/api';
 
 export const AnalyticsCalendarPage: React.FC = () => {
@@ -404,26 +405,31 @@ export const AnalyticsCalendarPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Menu Items Table */}
+              {/* Menu Items Table with Sticky Headers & Dense Formatting */}
               <div>
                 <h3 className="sub-heading" style={{ marginBottom: '8px', fontSize: '13px' }}>
                   Dishes Served Breakdown
                 </h3>
-                <div className="table-container">
-                  <table className="enterprise-table">
+                <div className="table-container" style={{ maxHeight: '340px' }}>
+                  <table className="enterprise-table dense-table" style={{ minWidth: '460px' }}>
                     <thead>
                       <tr>
-                        <th>Dish Name</th>
-                        <th>Meal</th>
-                        <th>Prep / Sold</th>
-                        <th>Surplus / Discard</th>
-                        <th>Waste %</th>
+                        <th style={{ width: '160px' }}>Dish Name</th>
+                        <th style={{ width: '80px' }}>Meal</th>
+                        <th style={{ width: '90px' }}>Prep / Sold</th>
+                        <th style={{ width: '100px' }}>Surplus / Discard</th>
+                        <th style={{ width: '70px' }}>Waste %</th>
                       </tr>
                     </thead>
                     <tbody>
                       {dateDetail.menu_items.map((m: any) => (
                         <tr key={m.food_id}>
-                          <td style={{ fontWeight: 500 }}>{m.food_name}</td>
+                          <td
+                            style={{ fontWeight: 500, maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                            title={m.food_name}
+                          >
+                            {m.food_name}
+                          </td>
                           <td>
                             <span className="badge badge-neutral" style={{ fontSize: '10px' }}>
                               {m.meal_period}
