@@ -16,7 +16,10 @@ if not MONGODB_URI:
 
 client = MongoClient(
     MONGODB_URI,
-    serverSelectionTimeoutMS=10000
+    serverSelectionTimeoutMS=30000,
+    connectTimeoutMS=30000,
+    socketTimeoutMS=120000,
+    timeoutMS=120000,
 )
 
 db = client[DATABASE_NAME]
