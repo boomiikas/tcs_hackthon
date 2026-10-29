@@ -1,0 +1,11 @@
+streamlit
+fastapi
+uvicorn[standard]
+pymongo
+python-dotenv
+requests
+pandas
+numpy
+plotly
+scikit-learn
+pytest

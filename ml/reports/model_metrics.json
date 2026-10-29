@@ -1,0 +1,88 @@
+{
+  "validation_comparison": {
+    "Seasonal Naive Baseline (Lag-7)": {
+      "MAE": 7.39,
+      "RMSE": 15.99,
+      "WAPE": 0.6497,
+      "R2": 0.161
+    },
+    "Random Forest Regressor": {
+      "MAE": 3.41,
+      "RMSE": 7.38,
+      "WAPE": 0.2996,
+      "R2": 0.821
+    },
+    "HistGradientBoosting Regressor": {
+      "MAE": 3.31,
+      "RMSE": 7.99,
+      "WAPE": 0.2911,
+      "R2": 0.791
+    }
+  },
+  "selected_best_model": "HistGradientBoosting Regressor",
+  "test_performance": {
+    "MAE": 3.17,
+    "RMSE": 7.08,
+    "WAPE": 0.3069,
+    "R2": 0.8
+  },
+  "top_10_features": {
+    "lag_1d": 0.5512,
+    "day_of_week": 0.0815,
+    "is_holiday": 0.0587,
+    "item_historical_mean": 0.0373,
+    "rolling_7d_mean": 0.036,
+    "sin_dow": 0.0208,
+    "lag_2d": 0.0132,
+    "promotion": 0.0088,
+    "rolling_28d_mean": 0.0042,
+    "lag_7d": 0.0031
+  },
+  "per_item_performance_sample": {
+    "Baked Spinach & Ricotta Lasagna": {
+      "count": 48,
+      "mean_actual": 2.0,
+      "mean_predicted": 2.5,
+      "MAE": 1.09,
+      "WAPE": 0.5458
+    },
+    "Balsamic Caprese Pasta Salad": {
+      "count": 55,
+      "mean_actual": 4.6,
+      "mean_predicted": 4.2,
+      "MAE": 1.45,
+      "WAPE": 0.3118
+    },
+    "Belgian Chocolate Frappe": {
+      "count": 55,
+      "mean_actual": 7.5,
+      "mean_predicted": 6.3,
+      "MAE": 2.54,
+      "WAPE": 0.3405
+    },
+    "Cheesy Alfredo Fusilli Pasta": {
+      "count": 55,
+      "mean_actual": 1.9,
+      "mean_predicted": 1.9,
+      "MAE": 0.93,
+      "WAPE": 0.4766
+    },
+    "Classic Cold Hazelnut Mocha": {
+      "count": 55,
+      "mean_actual": 28.7,
+      "mean_predicted": 27.0,
+      "MAE": 7.25,
+      "WAPE": 0.2524
+    }
+  },
+  "uncertainty_evaluation": {
+    "target_nominal_coverage_pct": 80.0,
+    "empirical_test_coverage_pct": 81.84,
+    "mean_interval_width_portions": 8.73,
+    "median_interval_width_portions": 5.5,
+    "mean_winkler_score": 14.14,
+    "conformal_calibration_margin": 0.25,
+    "high_uncertainty_forecast_count": 859,
+    "risk_guidance": "Notice: A prediction interval [P10, P90] represents statistical bounds capturing expected daily fluctuations under normal operating conditions. It is not an absolute physical guarantee against sudden exogenous campus disruptions (e.g. unscheduled closures, severe weather)."
+  }
+}

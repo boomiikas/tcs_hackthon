@@ -1,0 +1,123 @@
+{
+  "generator_name": "MenuMind Synthetic Canteen Data Pipeline",
+  "timestamp": "2026-10-29T11:54:53.901236",
+  "configuration": {
+    "random_seed": 42,
+    "start_date": "2025-01-06",
+    "num_weeks": 52,
+    "center_id": 13,
+    "num_items": 51,
+    "demand_scale": 0.15,
+    "price_scale": 1.0,
+    "promo_uplift": 0.25,
+    "waste_disposal_cost": 2.0,
+    "prep_policy": "buffered_forecast",
+    "buffer_pct": 0.1,
+    "kitchen_batch_size": 5,
+    "raw_dir": "data/raw",
+    "output_dir": "data/processed",
+    "canteen_name": "Campus Central Cafeteria",
+    "academic_year": "2025-2026"
+  },
+  "source_data_audit": {
+    "raw_train_rows": 456548,
+    "raw_meals_count": 51,
+    "raw_centers_count": 77,
+    "center_id": 13,
+    "center_type": "TYPE_B",
+    "op_area": 6.7,
+    "extracted_weeks": 52,
+    "start_week": 1,
+    "end_week": 52,
+    "extracted_rows": 2402,
+    "unique_meals_at_center": 48,
+    "total_raw_orders": 1472800
+  },
+  "validation_results": {
+    "catalog_and_mapping": {
+      "passed": true,
+      "details": [
+        "Catalog and mapping passed: all items unique, prices positive, margins healthy."
+      ]
+    },
+    "schema_and_nulls": {
+      "passed": true,
+      "details": [
+        "Schema and completeness verified: all 18 required columns present with 0 nulls."
+      ]
+    },
+    "duplicate_check": {
+      "passed": true,
+      "details": [
+        "No duplicate (date, item_id) records found."
+      ]
+    },
+    "numerical_ranges": {
+      "passed": true,
+      "details": [
+        "Numerical ranges valid: all quantities >= 0, prices > 0, ratings within [1, 5]."
+      ]
+    },
+    "accounting_identities": {
+      "passed": true,
+      "details": [
+        "All 7 accounting identities strictly satisfied across 100% of rows."
+      ]
+    },
+    "demand_distribution": {
+      "passed": true,
+      "details": [
+        "Demand distribution healthy: mean daily demand = 13.1, std = 23.9."
+      ]
+    },
+    "daily_weekly_consistency": {
+      "passed": true,
+      "details": [
+        "Daily-to-weekly aggregation verified: 100% consistent across sold, wasted, and revenue totals."
+      ]
+    },
+    "disaggregation_preservation": {
+      "passed": true,
+      "details": [
+        "Weekly total preservation verified: exactly preserved across all 2402 item-weeks."
+      ]
+    },
+    "summary": {
+      "overall_status": "PASSED",
+      "daily_records_count": 16814,
+      "weekly_records_count": 2402,
+      "unique_items_count": 48,
+      "date_range_start": "2025-01-06",
+      "date_range_end": "2026-01-04",
+      "total_prepared_portions": 289825,
+      "total_sold_portions": 182242,
+      "total_wasted_portions": 107583,
+      "waste_rate_percentage": 37.12,
+      "stockout_rate_percentage": 18.54,
+      "total_gross_revenue": 48891460.09,
+      "total_net_profit": 12305557.69
+    }
+  },
+  "files_generated": {
+    "daily_dataset": "D:\\Project\\tcsinternal\\data\\processed\\synthetic_canteen_daily.csv",
+    "weekly_dataset": "D:\\Project\\tcsinternal\\data\\processed\\synthetic_canteen_weekly.csv",
+    "menu_catalog": "D:\\Project\\tcsinternal\\data\\processed\\synthetic_menu_catalog.csv",
+    "source_mapping": "D:\\Project\\tcsinternal\\data\\processed\\source_mapping.csv",
+    "summary_json": "D:\\Project\\tcsinternal\\data\\processed\\generation_summary.json"
+  },
+  "key_metrics": {
+    "overall_status": "PASSED",
+    "daily_records_count": 16814,
+    "weekly_records_count": 2402,
+    "unique_items_count": 48,
+    "date_range_start": "2025-01-06",
+    "date_range_end": "2026-01-04",
+    "total_prepared_portions": 289825,
+    "total_sold_portions": 182242,
+    "total_wasted_portions": 107583,
+    "waste_rate_percentage": 37.12,
+    "stockout_rate_percentage": 18.54,
+    "total_gross_revenue": 48891460.09,
+    "total_net_profit": 12305557.69
+  }
+}
